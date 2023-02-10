@@ -60,6 +60,15 @@ struct TimelineItem: Decodable {
         }
     }
 
+    struct TweetWithVisibilityData: Decodable {
+        let tweet: TweetData
+    }
+
+    struct TweetData: Decodable {
+        let core: CoreData
+        let legacy: LegacyTweetData
+    }
+
     struct CoreData: Decodable {
         let userResults: UserResults
 
@@ -111,34 +120,6 @@ struct TimelineItem: Decodable {
 
             let dateString = try container.decode(String.self, forKey: .createdAt)
             self.createdAt = try TweetDateFormatter.shared.parseDate(from: dateString)
-        }
-    }
-
-    struct TweetWithVisibilityData: Decodable {
-        let tweet: TweetData
-    }
-
-    struct TweetData: Decodable {
-        let core: CoreData
-        let legacy: LegacyTweetData
-
-        func buildTweet() -> Tweet {
-            let userData = core.userResults.result
-
-            let author = User(
-                id: userData.restId,
-                displayName: userData.legacy.name,
-                screenName: userData.legacy.screenName
-            )
-
-            let tweet = Tweet(
-                id: legacy.id,
-                text: legacy.fullText,
-                author: author,
-                date: legacy.createdAt
-            )
-
-            return tweet
         }
     }
 }

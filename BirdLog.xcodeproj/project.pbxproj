@@ -20,6 +20,7 @@
 		8C7A253D2996F4830086BAE6 /* TweetDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A253C2996F4830086BAE6 /* TweetDateFormatter.swift */; };
 		8C7A2547299709440086BAE6 /* TimelineEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A2546299709440086BAE6 /* TimelineEntry.swift */; };
 		8C7A2549299709750086BAE6 /* TimelineItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A2548299709750086BAE6 /* TimelineItem.swift */; };
+		8C7A254B299709BE0086BAE6 /* TweetBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A254A299709BE0086BAE6 /* TweetBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		8C7A253C2996F4830086BAE6 /* TweetDateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetDateFormatter.swift; sourceTree = "<group>"; };
 		8C7A2546299709440086BAE6 /* TimelineEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineEntry.swift; sourceTree = "<group>"; };
 		8C7A2548299709750086BAE6 /* TimelineItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimelineItem.swift; sourceTree = "<group>"; };
+		8C7A254A299709BE0086BAE6 /* TweetBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				8C7A2526299678060086BAE6 /* Main.storyboard */,
 				8C7A252F2996783D0086BAE6 /* Models */,
 				8C7A253A2996D4D70086BAE6 /* TimelineDecoder.swift */,
+				8C7A254A299709BE0086BAE6 /* TweetBuilder.swift */,
 				8C7A253C2996F4830086BAE6 /* TweetDateFormatter.swift */,
 				8C7A2522299678040086BAE6 /* ViewController.swift */,
 			);
@@ -191,6 +194,7 @@
 				8C7A253B2996D4D70086BAE6 /* TimelineDecoder.swift in Sources */,
 				8C7A2547299709440086BAE6 /* TimelineEntry.swift in Sources */,
 				8C7A2533299689930086BAE6 /* Timelines.swift in Sources */,
+				8C7A254B299709BE0086BAE6 /* TweetBuilder.swift in Sources */,
 				8C7A2549299709750086BAE6 /* TimelineItem.swift in Sources */,
 				8C7A2531299678560086BAE6 /* HARArchive.swift in Sources */,
 			);

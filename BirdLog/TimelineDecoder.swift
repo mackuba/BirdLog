@@ -26,6 +26,7 @@ class TimelineDecoder {
         var allTweets: [Tweet] = []
 
         let jsonDecoder = JSONDecoder()
+        let builder = TweetBuilder()
         let timeline = try jsonDecoder.decode(timelineType, from: entry.response.content.data)
 
         for instruction in timeline.instructions {
@@ -33,11 +34,11 @@ class TimelineDecoder {
                 case .addEntries:
                     guard let entries = instruction.entries else { continue }
 
-                    let tweets = entries.flatMap { entry in
-                        return entry.tweets.compactMap { $0.tweetResults.result?.buildTweet() }
+                    for entry in entries {
+                        let tweetItems = entry.items.compactMap { $0.tweetResults.result }
+                        let tweets = tweetItems.map { builder.buildTweet(from: $0) }
+                        allTweets.append(contentsOf: tweets)
                     }
-
-                    allTweets.append(contentsOf: tweets)
 
                 case .clearCache:
                     continue

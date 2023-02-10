@@ -11,7 +11,7 @@ import Foundation
 struct TimelineEntry: Decodable {
     let content: Content
 
-    var tweets: [TimelineItem] {
+    var items: [TimelineItem] {
         if let item = content.itemContent, content.entryType == .item {
             return [item]
         } else if let items = content.items, content.entryType == .module {
