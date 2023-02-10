@@ -16,12 +16,34 @@ class ViewController: NSViewController {
         // Do any additional setup after loading the view.
     }
 
-    override var representedObject: Any? {
-        didSet {
-        // Update the view, if already loaded.
+    @IBAction func openDocument(_ sender: Any) {
+        let panel = NSOpenPanel()
+        panel.message = "Open a HAR archive to import:"
+        panel.allowedFileTypes = ["har"]
+
+        panel.beginSheetModal(for: self.view.window!) { response in
+            if response == .OK, let url = panel.url {
+                self.importHARArchive(url: url)
+            }
         }
     }
 
+    func importHARArchive(url: URL) {
+        let harDecoder = HARDecoder()
+        let timelineDecoder = TimelineDecoder()
 
+        do {
+            let data = try Data(contentsOf: url)
+            let requests = try harDecoder.decodeRequests(from: data)
+
+            for request in requests {
+                let tweets = try timelineDecoder.decodeTweets(from: request)
+                for tweet in tweets {
+                    print("\(tweet.date) @\(tweet.author.screenName): \"\(tweet.text)\"")
+                }
+            }
+        } catch let error {
+            print(error)
+        }
+    }
 }
-
