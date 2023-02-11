@@ -14,7 +14,8 @@ class TimelineDecoder {
               entry.request.method == "GET",
               entry.response.status == 200,
               let url = entry.request.url,
-              let timelineType = timelineType(for: url)
+              let timelineType = timelineType(for: url),
+              let responseData = entry.response.content.data
         else {
             return []
         }
@@ -27,7 +28,7 @@ class TimelineDecoder {
 
         let jsonDecoder = JSONDecoder()
         let builder = TweetBuilder()
-        let timeline = try jsonDecoder.decode(timelineType, from: entry.response.content.data)
+        let timeline = try jsonDecoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {
             switch instruction.type {

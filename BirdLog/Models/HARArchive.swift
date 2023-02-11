@@ -41,10 +41,10 @@ struct HARArchive: Decodable {
 
     struct ResponseContent: Decodable {
         let mimeType: String
-        let text: String
+        let text: String?
 
-        var data: Data {
-            return Data(text.utf8)
+        var data: Data? {
+            return text.flatMap { Data($0.utf8) }
         }
     }
 }
