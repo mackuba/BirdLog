@@ -10,7 +10,7 @@ import Foundation
 
 struct TimelineItem: Decodable {
     let itemType: ItemType
-    let tweetResults: TweetResults
+    let tweetResults: TweetResults?
 
     enum CodingKeys: String, CodingKey {
         case itemType
@@ -19,6 +19,7 @@ struct TimelineItem: Decodable {
 
     enum ItemType: String, Decodable {
         case tweet = "TimelineTweet"
+        case user = "TimelineUser"
     }
 
     struct TweetResults: Decodable {

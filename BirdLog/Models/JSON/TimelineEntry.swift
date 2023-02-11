@@ -21,6 +21,10 @@ struct TimelineEntry: Decodable {
         }
     }
 
+    var componentType: ComponentType {
+        content.clientEventInfo?.component ?? .notSpecified
+    }
+
     struct Content: Decodable {
         let entryType: EntryType
         let clientEventInfo: ClientEventInfo?
@@ -42,6 +46,12 @@ struct TimelineEntry: Decodable {
         case organicFeedTweet = "suggest_ranked_organic_tweet"
         case organicListTweet = "suggest_organic_list_tweet"
         case promotedTweet = "suggest_promoted"
+        case followSuggestions = "suggest_who_to_follow"
+        case notSpecified
+
+        var isOrganic: Bool {
+            self == .organicFeedTweet || self == .organicListTweet
+        }
     }
 
     struct SubItem: Decodable {

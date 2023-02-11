@@ -35,9 +35,10 @@ class TimelineDecoder {
                 case .addEntries:
                     guard let entries = instruction.entries else { continue }
 
-                    for entry in entries {
-                        let tweetItems = entry.items.compactMap { $0.tweetResults.result }
-                        let tweets = tweetItems.map { builder.buildTweet(from: $0) }
+                    for entry in entries where entry.componentType.isOrganic {
+                        let timelineItems = entry.items.filter({ $0.itemType == .tweet })
+                        let tweetDatas = timelineItems.compactMap({ $0.tweetResults?.result })
+                        let tweets = tweetDatas.map { builder.buildTweet(from: $0) }
                         allTweets.append(contentsOf: tweets)
                     }
 
