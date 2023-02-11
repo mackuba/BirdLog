@@ -48,11 +48,19 @@ class ViewController: NSViewController {
             let sortedTweets = tweetMap.values.sorted { $0.date > $1.date }
 
             for tweet in sortedTweets {
+                let retweet = tweet.retweetedTweet
+                let quote = retweet?.quotedTweet ?? tweet.quotedTweet
+
                 print("\(tweet.date) " +
-                      (tweet.retweetedTweet != nil ?
-                        "[by @\(tweet.author.screenName)] @\(tweet.retweetedTweet!.author.screenName): " :
+                      (retweet != nil ?
+                        "[by @\(tweet.author.screenName)] @\(retweet!.author.screenName): " :
                         "\(tweet.author.screenName): ") +
-                      "\"\(tweet.retweetedTweet?.text ?? tweet.text)\"")
+                      "\"\(retweet?.text ?? tweet.text)\"" +
+                      (quote != nil ?
+                       "\n  --> @\(quote!.author.screenName): \"\(quote!.text)\""
+                        : ""
+                      )
+                )
             }
         } catch let error {
             print(error)

@@ -80,6 +80,28 @@ struct TimelineItem: Decodable {
     struct TweetData: Decodable {
         let core: CoreData
         let legacy: LegacyTweetData
+
+        private let quotedStatuses: [TweetResults]
+
+        var quotedStatus: TweetData? {
+            quotedStatuses.first?.result
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case core
+            case legacy
+            case quotedStatuses = "quoted_status_result"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            self.core = try container.decode(CoreData.self, forKey: .core)
+            self.legacy = try container.decode(LegacyTweetData.self, forKey: .legacy)
+
+            let quotedStatus = try container.decodeIfPresent(TweetResults.self, forKey: .quotedStatuses)
+            self.quotedStatuses = [quotedStatus].compactMap { $0 }
+        }
     }
 
     struct CoreData: Decodable {
