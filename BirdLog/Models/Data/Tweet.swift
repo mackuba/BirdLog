@@ -13,4 +13,12 @@ struct Tweet: Codable {
     let text: String
     let author: User
     let date: Date
+    let retweetedTweet: RetweetedTweet?
+}
+
+struct RetweetedTweet: Codable {
+    let id: String
+    let text: String
+    let author: User
+    let date: Date
 }

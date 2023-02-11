@@ -115,14 +115,21 @@ struct TimelineItem: Decodable {
     }
 
     struct LegacyTweetData: Decodable {
+        let id: String
         let createdAt: Date
         let fullText: String
-        let id: String
+
+        private let retweetedStatuses: [TweetResults]
+
+        var retweetedStatus: TweetData? {
+            retweetedStatuses.first?.result
+        }
 
         enum CodingKeys: String, CodingKey {
+            case id = "id_str"
             case createdAt = "created_at"
             case fullText = "full_text"
-            case id = "id_str"
+            case retweetedStatus = "retweeted_status_result"
         }
 
         init(from decoder: Decoder) throws {
@@ -133,6 +140,9 @@ struct TimelineItem: Decodable {
 
             let dateString = try container.decode(String.self, forKey: .createdAt)
             self.createdAt = try TweetDateFormatter.shared.parseDate(from: dateString)
+
+            let retweetedStatus = try container.decodeIfPresent(TweetResults.self, forKey: .retweetedStatus)
+            self.retweetedStatuses = [retweetedStatus].compactMap { $0 }
         }
     }
 }
