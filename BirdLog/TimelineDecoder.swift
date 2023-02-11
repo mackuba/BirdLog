@@ -31,7 +31,7 @@ class TimelineDecoder {
         let timeline = try jsonDecoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {
-            let entries = instruction.allEntries.filter { $0.componentType.isOrganic }
+            let entries = instruction.allEntries.filter { $0.componentType.isRelevant }
 
             for entry in entries {
                 let timelineItems = entry.items.filter({ $0.itemType == .tweet })

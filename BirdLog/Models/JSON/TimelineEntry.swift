@@ -49,16 +49,35 @@ struct TimelineEntry: Decodable {
     }
 
     enum ComponentType: String, Decodable {
+        // normal tweet from someone you follow
         case organicFeedTweet = "suggest_ranked_organic_tweet"
+
+        // tweet in a list timeline
         case organicListTweet = "suggest_organic_list_tweet"
+
+        // user's pinned tweet
         case pinnedTweet = "suggest_pinned_tweet"
+
+        // reply that shows in your timeline
+        case extendedReply = "suggest_extended_reply"
+
+        // algorithmic timeline suggested tweets
+        case socialContext = "suggest_sc_tweet"                     // X follows
+        case socialActivity = "suggest_activity_tweet"              // X liked
+        case rankedTimelineTweet = "suggest_ranked_timeline_tweet"
+
+        // promoted tweet (ad)
         case promotedTweet = "suggest_promoted"
+
+        // "Who to follow" block
         case followSuggestions = "suggest_who_to_follow"
+
+        // clientEventInfo block is missing
         case notSpecified
 
-        var isOrganic: Bool {
+        var isRelevant: Bool {
             switch self {
-                case .organicListTweet, .organicFeedTweet, .pinnedTweet:
+                case .organicListTweet, .organicFeedTweet, .pinnedTweet, .extendedReply, .socialContext:
                     return true
                 default:
                     return false
