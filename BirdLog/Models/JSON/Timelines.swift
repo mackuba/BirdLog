@@ -98,6 +98,8 @@ struct UserTimelineJSON: Decodable, Timeline {
 
 struct TimelineInstruction: Decodable {
     let type: InstructionType
+
+    // instructions like TimelineClearCache will not contain an entries field
     let entries: [TimelineEntry]?
 
     enum InstructionType: String, Decodable {

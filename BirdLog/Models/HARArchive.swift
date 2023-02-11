@@ -41,6 +41,8 @@ struct HARArchive: Decodable {
 
     struct ResponseContent: Decodable {
         let mimeType: String
+
+        // some responses that have length 0 may not include a text field at all
         let text: String?
 
         var data: Data? {

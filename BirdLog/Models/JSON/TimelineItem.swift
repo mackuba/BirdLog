@@ -10,6 +10,9 @@ import Foundation
 
 struct TimelineItem: Decodable {
     let itemType: ItemType
+
+    // timeline may contain e.g. "Who to follow" blocks with items that include
+    // user_results instead of tweet_results
     let tweetResults: TweetResults?
 
     enum CodingKeys: String, CodingKey {
@@ -23,12 +26,16 @@ struct TimelineItem: Decodable {
     }
 
     struct TweetResults: Decodable {
+        // there are sometimes empty timeline items with tweet_results that is just {}
         let result: TweetData?
 
         enum CodingKeys: CodingKey {
             case result
         }
 
+        // for tweets with e.g. restricted replying, the result block will have
+        // typename = TweetWithVisibilityResults and then all data below is
+        // wrapped in an additional `tweet` subobject instead of directly under `result`
         init(from decoder: Decoder) throws {
             let container = try decoder.container(keyedBy: CodingKeys.self)
 

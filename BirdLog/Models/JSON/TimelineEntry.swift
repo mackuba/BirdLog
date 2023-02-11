@@ -27,7 +27,13 @@ struct TimelineEntry: Decodable {
 
     struct Content: Decodable {
         let entryType: EntryType
+
+        // some entries like TimelineTimelineCursor, items with empty tweet_results
+        // and tweets on user timeline will not contain clientEventInfo
         let clientEventInfo: ClientEventInfo?
+
+        // single tweet entries contain `itemContent`, conversation entries contain `items`
+        // (some other entries contain neither)
         let itemContent: TimelineItem?
         let items: [SubItem]?
     }
