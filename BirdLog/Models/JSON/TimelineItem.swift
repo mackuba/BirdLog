@@ -51,6 +51,10 @@ struct TimelineItem: Decodable {
                 case .tweetWithVisibility:
                     let wrapper = try container.decode(TweetWithVisibilityData.self, forKey: .result)
                     result = wrapper.tweet
+
+                case .unavailableTweet:
+                    result = nil
+                    return
             }
         }
     }
@@ -59,6 +63,7 @@ struct TimelineItem: Decodable {
         enum TypeName: String, Decodable {
             case tweet = "Tweet"
             case tweetWithVisibility = "TweetWithVisibilityResults"
+            case unavailableTweet = "TweetUnavailable"
         }
 
         let typeName: TypeName
