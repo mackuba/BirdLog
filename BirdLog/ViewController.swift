@@ -36,11 +36,19 @@ class ViewController: NSViewController {
             let data = try Data(contentsOf: url)
             let requests = try harDecoder.decodeRequests(from: data)
 
+            var tweetMap: [String:Tweet] = [:]
+
             for request in requests {
                 let tweets = try timelineDecoder.decodeTweets(from: request)
                 for tweet in tweets {
-                    print("\(tweet.date) @\(tweet.author.screenName): \"\(tweet.text)\"")
+                    tweetMap[tweet.id] = tweet
                 }
+            }
+
+            let sortedTweets = tweetMap.values.sorted { $0.date > $1.date }
+
+            for tweet in sortedTweets {
+                print("\(tweet.date) @\(tweet.author.screenName): \"\(tweet.text)\"")
             }
         } catch let error {
             print(error)
