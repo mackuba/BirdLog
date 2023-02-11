@@ -31,19 +31,13 @@ class TimelineDecoder {
         let timeline = try jsonDecoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {
-            switch instruction.type {
-                case .addEntries:
-                    guard let entries = instruction.entries else { continue }
+            let entries = instruction.allEntries.filter { $0.componentType.isOrganic }
 
-                    for entry in entries where entry.componentType.isOrganic {
-                        let timelineItems = entry.items.filter({ $0.itemType == .tweet })
-                        let tweetDatas = timelineItems.compactMap({ $0.tweetResults?.result })
-                        let tweets = tweetDatas.map { builder.buildTweet(from: $0) }
-                        allTweets.append(contentsOf: tweets)
-                    }
-
-                case .clearCache:
-                    continue
+            for entry in entries {
+                let timelineItems = entry.items.filter({ $0.itemType == .tweet })
+                let tweetDatas = timelineItems.compactMap({ $0.tweetResults?.result })
+                let tweets = tweetDatas.map { builder.buildTweet(from: $0) }
+                allTweets.append(contentsOf: tweets)
             }
         }
 

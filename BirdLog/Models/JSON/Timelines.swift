@@ -102,8 +102,22 @@ struct TimelineInstruction: Decodable {
     // instructions like TimelineClearCache will not contain an entries field
     let entries: [TimelineEntry]?
 
+    // instructions like TimelinePinEntry contain a single `entry` instead of `entries`
+    let entry: TimelineEntry?
+
+    var allEntries: [TimelineEntry] {
+        if let entries, type == .addEntries {
+            return entries
+        } else if let entry, type == .pinEntry {
+            return [entry]
+        } else {
+            return []
+        }
+    }
+
     enum InstructionType: String, Decodable {
         case addEntries = "TimelineAddEntries"
         case clearCache = "TimelineClearCache"
+        case pinEntry = "TimelinePinEntry"
     }
 }

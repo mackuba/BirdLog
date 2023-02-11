@@ -51,12 +51,18 @@ struct TimelineEntry: Decodable {
     enum ComponentType: String, Decodable {
         case organicFeedTweet = "suggest_ranked_organic_tweet"
         case organicListTweet = "suggest_organic_list_tweet"
+        case pinnedTweet = "suggest_pinned_tweet"
         case promotedTweet = "suggest_promoted"
         case followSuggestions = "suggest_who_to_follow"
         case notSpecified
 
         var isOrganic: Bool {
-            self == .organicFeedTweet || self == .organicListTweet
+            switch self {
+                case .organicListTweet, .organicFeedTweet, .pinnedTweet:
+                    return true
+                default:
+                    return false
+            }
         }
     }
 
