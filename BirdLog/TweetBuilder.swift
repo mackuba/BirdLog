@@ -14,7 +14,7 @@ class TweetBuilder {
 
         let tweet = Tweet(
             id: data.legacy.id,
-            text: data.legacy.fullText,
+            text: replaceEntities(in: data.legacy.fullText, from: data.legacy.entities),
             author: author,
             date: data.legacy.createdAt,
             retweetedTweet: buildRetweetedTweet(from: data.legacy.retweetedStatus),
@@ -22,6 +22,12 @@ class TweetBuilder {
         )
 
         return tweet
+    }
+
+    func replaceEntities(in text: String, from entities: TimelineItem.TweetEntities) -> String {
+        return entities.urls.reduce(text) { string, entity in
+            string.replacingOccurrences(of: entity.shortenedURL.absoluteString, with: entity.expandedURL.absoluteString)
+        }
     }
 
     func buildUser(from data: TimelineItem.UserResult) -> User {
@@ -39,7 +45,7 @@ class TweetBuilder {
 
         return RetweetedTweet(
             id: data.legacy.id,
-            text: data.legacy.fullText,
+            text: replaceEntities(in: data.legacy.fullText, from: data.legacy.entities),
             author: author,
             date: data.legacy.createdAt,
             quotedTweet: buildQuotedTweet(from: data.quotedStatus)
@@ -53,7 +59,7 @@ class TweetBuilder {
 
         return QuotedTweet(
             id: data.legacy.id,
-            text: data.legacy.fullText,
+            text: replaceEntities(in: data.legacy.fullText, from: data.legacy.entities),
             author: author,
             date: data.legacy.createdAt
         )

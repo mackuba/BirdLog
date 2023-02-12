@@ -140,6 +140,7 @@ struct TimelineItem: Decodable {
         let id: String
         let createdAt: Date
         let fullText: String
+        let entities: TweetEntities
 
         private let retweetedStatuses: [TweetResults]
 
@@ -152,6 +153,7 @@ struct TimelineItem: Decodable {
             case createdAt = "created_at"
             case fullText = "full_text"
             case retweetedStatus = "retweeted_status_result"
+            case entities = "entities"
         }
 
         init(from decoder: Decoder) throws {
@@ -165,6 +167,42 @@ struct TimelineItem: Decodable {
 
             let retweetedStatus = try container.decodeIfPresent(TweetResults.self, forKey: .retweetedStatus)
             self.retweetedStatuses = [retweetedStatus].compactMap { $0 }
+
+            self.entities = try container.decode(TweetEntities.self, forKey: .entities)
+        }
+    }
+
+    struct TweetEntities: Decodable {
+        let urls: [URLEntity]
+    }
+
+    struct URLEntity: Decodable {
+        let expandedURL: URL
+        let shortenedURL: URL
+
+        struct InvalidURL: LocalizedError {
+            let url: String
+
+            var errorDescription: String? {
+                return "Invalid URL: \(url)"
+            }
+        }
+
+        enum CodingKeys: String, CodingKey {
+            case expandedURL = "expanded_url"
+            case shortenedURL = "url"
+        }
+
+        init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+
+            let expandedStr = try container.decode(String.self, forKey: .expandedURL)
+            guard let expandedURL = URL(string: expandedStr) else { throw InvalidURL(url: expandedStr) }
+            self.expandedURL = expandedURL
+
+            let shortenedStr = try container.decode(String.self, forKey: .shortenedURL)
+            guard let shortenedURL = URL(string: shortenedStr) else { throw InvalidURL(url: shortenedStr) }
+            self.shortenedURL = shortenedURL
         }
     }
 }
