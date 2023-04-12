@@ -31,21 +31,22 @@ class ViewController: NSViewController {
     func importHARArchive(url: URL) {
         let harDecoder = HARDecoder()
         let timelineDecoder = TimelineDecoder()
+        let builder = TweetBuilder()
 
         do {
             let data = try Data(contentsOf: url)
             let requests = try harDecoder.decodeRequests(from: data)
 
-            var tweetMap: [String:Tweet] = [:]
+            var allTweetData: [TimelineItem.TweetData] = []
 
             for request in requests {
-                let tweets = try timelineDecoder.decodeTweets(from: request)
-                for tweet in tweets {
-                    tweetMap[tweet.id] = tweet
-                }
+                let tweetDatas = try timelineDecoder.decodeTweetData(from: request)
+                allTweetData.append(contentsOf: tweetDatas)
             }
 
-            let sortedTweets = tweetMap.values.sorted { $0.date > $1.date }
+            let tweets = allTweetData.map { builder.buildTweet(from: $0) }
+
+            let sortedTweets = tweets.sorted { $0.date > $1.date }
 
             for tweet in sortedTweets {
                 let retweet = tweet.retweetedTweet

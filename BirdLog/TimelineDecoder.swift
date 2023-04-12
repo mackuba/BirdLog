@@ -9,7 +9,7 @@
 import Foundation
 
 class TimelineDecoder {
-    func decodeTweets(from entry: HARArchive.Entry) throws -> [Tweet] {
+    func decodeTweetData(from entry: HARArchive.Entry) throws -> [TimelineItem.TweetData] {
         guard entry.request.urlString.hasPrefix("https://api.twitter.com/graphql/"),
               entry.request.method == "GET",
               entry.response.status == 200,
@@ -24,10 +24,9 @@ class TimelineDecoder {
             return []
         }
 
-        var allTweets: [Tweet] = []
+        var allTweetData: [TimelineItem.TweetData] = []
 
         let jsonDecoder = JSONDecoder()
-        let builder = TweetBuilder()
         let timeline = try jsonDecoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {
@@ -36,12 +35,11 @@ class TimelineDecoder {
             for entry in entries {
                 let timelineItems = entry.items.filter({ $0.itemType == .tweet })
                 let tweetDatas = timelineItems.compactMap({ $0.tweetResults?.result })
-                let tweets = tweetDatas.map { builder.buildTweet(from: $0) }
-                allTweets.append(contentsOf: tweets)
+                allTweetData.append(contentsOf: tweetDatas)
             }
         }
 
-        return allTweets
+        return allTweetData
     }
 
     func timelineType(for url: URL) -> Timeline.Type? {
