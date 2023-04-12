@@ -7,6 +7,9 @@
 //
 
 import Cocoa
+import OSLog
+
+let log = Logger()
 
 class ViewController: NSViewController {
 
@@ -34,16 +37,19 @@ class ViewController: NSViewController {
         let builder = TweetBuilder()
 
         do {
+            log.debug("Decoding HAR...")
             let data = try Data(contentsOf: url)
             let requests = try harDecoder.decodeRequests(from: data)
 
             var allTweetData: [TimelineItem.TweetData] = []
 
+            log.debug("Decoding tweet JSON...")
             for request in requests {
                 let tweetDatas = try timelineDecoder.decodeTweetData(from: request)
                 allTweetData.append(contentsOf: tweetDatas)
             }
 
+            log.debug("Building tweets...")
             let tweets = allTweetData.map { builder.buildTweet(from: $0) }
 
             let sortedTweets = tweets.sorted { $0.date > $1.date }
