@@ -13,10 +13,12 @@ let log = Logger()
 
 class ViewController: NSViewController {
 
+    var managedObjectContext: NSManagedObjectContext!
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.managedObjectContext = (NSApp.delegate as! AppDelegate).persistentContainer.viewContext
     }
 
     @IBAction func openDocument(_ sender: Any) {
@@ -34,7 +36,7 @@ class ViewController: NSViewController {
     func importHARArchive(url: URL) {
         let harDecoder = HARDecoder()
         let timelineDecoder = TimelineDecoder()
-        let builder = TweetBuilder()
+        let builder = TweetBuilder(context: managedObjectContext)
 
         do {
             log.debug("Decoding HAR...")
@@ -50,21 +52,26 @@ class ViewController: NSViewController {
             }
 
             log.debug("Building tweets...")
-            let tweets = allTweetData.map { builder.buildTweet(from: $0) }
+            let tweets = try allTweetData.map { try builder.buildTweet(from: $0) }
 
-            let sortedTweets = tweets.sorted { $0.date > $1.date }
+            let sortedTweets = tweets.sorted { $0.date! > $1.date! }
+
+            log.debug("Saving managed context to the store...")
+            try managedObjectContext.save()
+
+            log.debug("Done ✓")
 
             for tweet in sortedTweets {
                 let retweet = tweet.retweetedTweet
                 let quote = retweet?.quotedTweet ?? tweet.quotedTweet
 
-                print("\(tweet.date) " +
+                print("\(tweet.date!) " +
                       (retweet != nil ?
-                        "[by @\(tweet.author.screenName)] @\(retweet!.author.screenName): " :
-                        "\(tweet.author.screenName): ") +
+                        "[by @\(tweet.author?.screenName)] @\(retweet!.author?.screenName): " :
+                        "\(tweet.author?.screenName): ") +
                       "\"\(retweet?.text ?? tweet.text)\"" +
                       (quote != nil ?
-                       "\n  --> @\(quote!.author.screenName): \"\(quote!.text)\""
+                       "\n  --> @\(quote!.author?.screenName): \"\(quote!.text)\""
                         : ""
                       )
                 )
