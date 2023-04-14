@@ -45,6 +45,11 @@ class TweetBuilder {
         tweet.author = try buildUser(from: data.core.userResults.result)
         tweet.language = data.legacy.language
 
+        tweet.favoriteCount = Int32(exactly: data.legacy.favoriteCount) ?? -1
+        tweet.quoteCount = Int32(exactly: data.legacy.quoteCount) ?? -1
+        tweet.replyCount = Int32(exactly: data.legacy.replyCount) ?? -1
+        tweet.retweetCount = Int32(exactly: data.legacy.retweetCount) ?? -1
+
         if let retweetData = data.legacy.retweetedStatus {
             tweet.retweetedTweet = try buildTweet(from: retweetData)
         } else {
