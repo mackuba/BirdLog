@@ -144,6 +144,7 @@ struct TimelineItem: Decodable {
         let createdAt: Date
         let fullText: String
         let entities: TweetEntities
+        let language: String
 
         private let retweetedStatuses: [TweetResults]
 
@@ -157,6 +158,7 @@ struct TimelineItem: Decodable {
             case fullText = "full_text"
             case retweetedStatus = "retweeted_status_result"
             case entities = "entities"
+            case language = "lang"
         }
 
         init(from decoder: Decoder) throws {
@@ -164,6 +166,7 @@ struct TimelineItem: Decodable {
 
             self.fullText = try container.decode(String.self, forKey: .fullText)
             self.id = try container.decode(String.self, forKey: .id)
+            self.language = try container.decode(String.self, forKey: .language)
 
             let dateString = try container.decode(String.self, forKey: .createdAt)
             self.createdAt = try TweetDateFormatter.shared.parseDate(from: dateString)

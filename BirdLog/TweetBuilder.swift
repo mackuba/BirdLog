@@ -43,6 +43,7 @@ class TweetBuilder {
         tweet.id = tweetId
         tweet.date = data.legacy.createdAt
         tweet.author = try buildUser(from: data.core.userResults.result)
+        tweet.language = data.legacy.language
 
         if let retweetData = data.legacy.retweetedStatus {
             tweet.retweetedTweet = try buildTweet(from: retweetData)

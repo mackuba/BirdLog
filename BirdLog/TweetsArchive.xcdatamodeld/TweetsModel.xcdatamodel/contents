@@ -3,6 +3,7 @@
     <entity name="Tweet" representedClassName="Tweet" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" minDateTimeInterval="157762800" maxDateTimeInterval="915145200" usesScalarValueType="NO"/>
         <attribute name="id" attributeType="String" minValueString="1"/>
+        <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="source" optional="YES" attributeType="String"/>
         <attribute name="text" optional="YES" attributeType="String" minValueString="1"/>
         <relationship name="author" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="tweets" inverseEntity="User"/>
