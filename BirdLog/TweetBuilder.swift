@@ -9,6 +9,8 @@
 import CoreData
 import Foundation
 
+private let sourceStripRegexp = try! NSRegularExpression(pattern: "</?a[^>]*>")
+
 class TweetBuilder {
     let context: NSManagedObjectContext
     var newTweets: [String:Tweet] = [:]
@@ -50,6 +52,14 @@ class TweetBuilder {
 
         if let quoteData = data.quotedStatus {
             tweet.quotedTweet = try buildTweet(from: quoteData)
+        }
+
+        if let source = data.source {
+            tweet.source = sourceStripRegexp.stringByReplacingMatches(
+                in: source,
+                range: NSRange(location: 0, length: (source as NSString).length),
+                withTemplate: ""
+            )
         }
 
         newTweets[tweetId] = tweet
