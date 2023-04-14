@@ -9,11 +9,17 @@
         <relationship name="quotes" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tweet" inverseName="quotedTweet" inverseEntity="Tweet"/>
         <relationship name="retweetedTweet" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Tweet" inverseName="retweets" inverseEntity="Tweet"/>
         <relationship name="retweets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Tweet" inverseName="retweetedTweet" inverseEntity="Tweet"/>
+        <fetchIndex name="byId">
+            <fetchIndexElement property="id" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES" codeGenerationType="class">
         <attribute name="displayName" optional="YES" attributeType="String" minValueString="1"/>
         <attribute name="id" attributeType="String" minValueString="1"/>
         <attribute name="screenName" attributeType="String" minValueString="1"/>
         <relationship name="tweets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Tweet" inverseName="author" inverseEntity="Tweet"/>
+        <fetchIndex name="byId">
+            <fetchIndexElement property="id" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
 </model>
