@@ -40,11 +40,12 @@ class TweetBuilder {
 
         tweet.id = tweetId
         tweet.date = data.legacy.createdAt
-        tweet.text = replaceEntities(in: data.legacy.fullText, from: data.legacy.entities)
         tweet.author = try buildUser(from: data.core.userResults.result)
 
         if let retweetData = data.legacy.retweetedStatus {
             tweet.retweetedTweet = try buildTweet(from: retweetData)
+        } else {
+            tweet.text = replaceEntities(in: data.legacy.fullText, from: data.legacy.entities)
         }
 
         if let quoteData = data.quotedStatus {
