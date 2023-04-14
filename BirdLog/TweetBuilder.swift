@@ -11,6 +11,8 @@ import Foundation
 
 class TweetBuilder {
     let context: NSManagedObjectContext
+    var newTweets: [String:Tweet] = [:]
+    var newUsers: [String:User] = [:]
 
     init(context: NSManagedObjectContext) {
         self.context = context
@@ -18,6 +20,21 @@ class TweetBuilder {
 
     func buildTweet(from data: TimelineItem.TweetData) throws -> Tweet {
         let tweetId = data.legacy.id
+
+        if let newTweet = newTweets[tweetId] {
+            return newTweet
+        }
+
+        let request = Tweet.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", argumentArray: [tweetId])
+        request.fetchLimit = 1
+        request.includesPendingChanges = false
+
+        let results = try context.fetch(request)
+
+        if let existing = results.first {
+            return existing
+        }
 
         let tweet = Tweet(context: context)
 
@@ -34,6 +51,8 @@ class TweetBuilder {
             tweet.quotedTweet = try buildTweet(from: quoteData)
         }
 
+        newTweets[tweetId] = tweet
+
         return tweet
     }
 
@@ -46,10 +65,28 @@ class TweetBuilder {
     func buildUser(from data: TimelineItem.UserResult) throws -> User {
         let userId = data.restId
 
+        if let newUser = newUsers[userId] {
+            return newUser
+        }
+
+        let request = User.fetchRequest()
+        request.predicate = NSPredicate(format: "id = %@", argumentArray: [userId])
+        request.fetchLimit = 1
+        request.includesPendingChanges = false
+
+        let results = try context.fetch(request)
+
+        if let existing = results.first {
+            return existing
+        }
+
         let user = User(context: context)
         user.id = userId
         user.displayName = data.legacy.name
         user.screenName = data.legacy.screenName
+
+        newUsers[userId] = user
+
         return user
     }
 }

@@ -9,7 +9,7 @@
 import Cocoa
 import OSLog
 
-let log = Logger()
+private let log = Logger()
 
 class ViewController: NSViewController {
 
@@ -39,8 +39,10 @@ class ViewController: NSViewController {
         let builder = TweetBuilder(context: managedObjectContext)
 
         do {
-            log.debug("Decoding HAR...")
+            log.debug("Reading file...")
             let data = try Data(contentsOf: url)
+
+            log.debug("Decoding HAR...")
             let requests = try harDecoder.decodeRequests(from: data)
 
             var allTweetData: [TimelineItem.TweetData] = []
