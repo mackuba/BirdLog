@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8C0C6CC529EAE0F1008C340B /* ZippyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0C6CC429EAE0F1008C340B /* ZippyJSON */; };
 		8C0C6CC729EAE153008C340B /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CC629EAE153008C340B /* JSONDecoder.swift */; };
+		8C0C6CC929EAFAA8008C340B /* TweetExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CC829EAFAA8008C340B /* TweetExporter.swift */; };
+		8C0C6CCD29EAFBFD008C340B /* TweetJSONRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CCB29EAFBFD008C340B /* TweetJSONRepresentation.swift */; };
 		8C69333C29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C69333A29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld */; };
 		8C69336629E884B800B9F5B5 /* MeasureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C69336529E884B800B9F5B5 /* MeasureTime.swift */; };
 		8C7A2521299678040086BAE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A2520299678040086BAE6 /* AppDelegate.swift */; };
@@ -27,6 +29,8 @@
 
 /* Begin PBXFileReference section */
 		8C0C6CC629EAE153008C340B /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
+		8C0C6CC829EAFAA8008C340B /* TweetExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetExporter.swift; sourceTree = "<group>"; };
+		8C0C6CCB29EAFBFD008C340B /* TweetJSONRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetJSONRepresentation.swift; sourceTree = "<group>"; };
 		8C69333B29E2EB7100B9F5B5 /* TweetsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TweetsModel.xcdatamodel; sourceTree = "<group>"; };
 		8C69336529E884B800B9F5B5 /* MeasureTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTime.swift; sourceTree = "<group>"; };
 		8C7A251D299678040086BAE6 /* BirdLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BirdLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -57,6 +61,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C0C6CCA29EAFBE1008C340B /* Export */ = {
+			isa = PBXGroup;
+			children = (
+				8C0C6CCB29EAFBFD008C340B /* TweetJSONRepresentation.swift */,
+			);
+			path = Export;
+			sourceTree = "<group>";
+		};
 		8C7A2514299678040086BAE6 = {
 			isa = PBXGroup;
 			children = (
@@ -87,6 +99,7 @@
 				8C7A253A2996D4D70086BAE6 /* TimelineDecoder.swift */,
 				8C7A254A299709BE0086BAE6 /* TweetBuilder.swift */,
 				8C7A253C2996F4830086BAE6 /* TweetDateFormatter.swift */,
+				8C0C6CC829EAFAA8008C340B /* TweetExporter.swift */,
 				8C69333A29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld */,
 				8C7A2522299678040086BAE6 /* ViewController.swift */,
 			);
@@ -96,20 +109,21 @@
 		8C7A252F2996783D0086BAE6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				8C0C6CCA29EAFBE1008C340B /* Export */,
 				8C7A2530299678560086BAE6 /* HARArchive.swift */,
-				8C7A253E299708190086BAE6 /* JSON */,
+				8C7A253E299708190086BAE6 /* Timeline */,
 			);
 			path = Models;
 			sourceTree = "<group>";
 		};
-		8C7A253E299708190086BAE6 /* JSON */ = {
+		8C7A253E299708190086BAE6 /* Timeline */ = {
 			isa = PBXGroup;
 			children = (
 				8C7A2532299689930086BAE6 /* Timelines.swift */,
 				8C7A2546299709440086BAE6 /* TimelineEntry.swift */,
 				8C7A2548299709750086BAE6 /* TimelineItem.swift */,
 			);
-			path = JSON;
+			path = Timeline;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -191,6 +205,7 @@
 				8C7A2523299678040086BAE6 /* ViewController.swift in Sources */,
 				8C69336629E884B800B9F5B5 /* MeasureTime.swift in Sources */,
 				8C7A253D2996F4830086BAE6 /* TweetDateFormatter.swift in Sources */,
+				8C0C6CCD29EAFBFD008C340B /* TweetJSONRepresentation.swift in Sources */,
 				8C7A2521299678040086BAE6 /* AppDelegate.swift in Sources */,
 				8C7A25392996CADB0086BAE6 /* HARDecoder.swift in Sources */,
 				8C0C6CC729EAE153008C340B /* JSONDecoder.swift in Sources */,
@@ -199,6 +214,7 @@
 				8C7A2533299689930086BAE6 /* Timelines.swift in Sources */,
 				8C7A254B299709BE0086BAE6 /* TweetBuilder.swift in Sources */,
 				8C69333C29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld in Sources */,
+				8C0C6CC929EAFAA8008C340B /* TweetExporter.swift in Sources */,
 				8C7A2549299709750086BAE6 /* TimelineItem.swift in Sources */,
 				8C7A2531299678560086BAE6 /* HARArchive.swift in Sources */,
 			);
