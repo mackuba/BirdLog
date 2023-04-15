@@ -34,8 +34,9 @@ class ViewController: NSViewController {
     }
 
     func importHARArchive(url: URL) {
-        let harDecoder = HARDecoder()
-        let timelineDecoder = TimelineDecoder()
+        let jsonDecoder = defaultJSONDecoder()
+        let harDecoder = HARDecoder(jsonDecoder: jsonDecoder)
+        let timelineDecoder = TimelineDecoder(jsonDecoder: jsonDecoder)
         let builder = TweetBuilder(context: managedObjectContext)
 
         do {

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0C6CC529EAE0F1008C340B /* ZippyJSON in Frameworks */ = {isa = PBXBuildFile; productRef = 8C0C6CC429EAE0F1008C340B /* ZippyJSON */; };
+		8C0C6CC729EAE153008C340B /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CC629EAE153008C340B /* JSONDecoder.swift */; };
 		8C69333C29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C69333A29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld */; };
 		8C69336629E884B800B9F5B5 /* MeasureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C69336529E884B800B9F5B5 /* MeasureTime.swift */; };
 		8C7A2521299678040086BAE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A2520299678040086BAE6 /* AppDelegate.swift */; };
@@ -24,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C0C6CC629EAE153008C340B /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		8C69333B29E2EB7100B9F5B5 /* TweetsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TweetsModel.xcdatamodel; sourceTree = "<group>"; };
 		8C69336529E884B800B9F5B5 /* MeasureTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTime.swift; sourceTree = "<group>"; };
 		8C7A251D299678040086BAE6 /* BirdLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BirdLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +50,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0C6CC529EAE0F1008C340B /* ZippyJSON in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +80,7 @@
 				8C7A2524299678060086BAE6 /* Assets.xcassets */,
 				8C7A2529299678060086BAE6 /* BirdLog.entitlements */,
 				8C7A25382996CADB0086BAE6 /* HARDecoder.swift */,
+				8C0C6CC629EAE153008C340B /* JSONDecoder.swift */,
 				8C7A2526299678060086BAE6 /* Main.storyboard */,
 				8C69336529E884B800B9F5B5 /* MeasureTime.swift */,
 				8C7A252F2996783D0086BAE6 /* Models */,
@@ -123,6 +128,9 @@
 			dependencies = (
 			);
 			name = BirdLog;
+			packageProductDependencies = (
+				8C0C6CC429EAE0F1008C340B /* ZippyJSON */,
+			);
 			productName = BirdLog;
 			productReference = 8C7A251D299678040086BAE6 /* BirdLog.app */;
 			productType = "com.apple.product-type.application";
@@ -151,6 +159,9 @@
 				Base,
 			);
 			mainGroup = 8C7A2514299678040086BAE6;
+			packageReferences = (
+				8C0C6CC329EAE0F1008C340B /* XCRemoteSwiftPackageReference "ZippyJSON" */,
+			);
 			productRefGroup = 8C7A251E299678040086BAE6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -182,6 +193,7 @@
 				8C7A253D2996F4830086BAE6 /* TweetDateFormatter.swift in Sources */,
 				8C7A2521299678040086BAE6 /* AppDelegate.swift in Sources */,
 				8C7A25392996CADB0086BAE6 /* HARDecoder.swift in Sources */,
+				8C0C6CC729EAE153008C340B /* JSONDecoder.swift in Sources */,
 				8C7A253B2996D4D70086BAE6 /* TimelineDecoder.swift in Sources */,
 				8C7A2547299709440086BAE6 /* TimelineEntry.swift in Sources */,
 				8C7A2533299689930086BAE6 /* Timelines.swift in Sources */,
@@ -397,6 +409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8C0C6CC329EAE0F1008C340B /* XCRemoteSwiftPackageReference "ZippyJSON" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/michaeleisel/ZippyJSON.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.10;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8C0C6CC429EAE0F1008C340B /* ZippyJSON */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8C0C6CC329EAE0F1008C340B /* XCRemoteSwiftPackageReference "ZippyJSON" */;
+			productName = ZippyJSON;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		8C69333A29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld */ = {

@@ -9,6 +9,12 @@
 import Foundation
 
 class TimelineDecoder {
+    let jsonDecoder: CompatibleJSONDecoder
+
+    init(jsonDecoder: CompatibleJSONDecoder) {
+        self.jsonDecoder = jsonDecoder
+    }
+
     func decodeTweetData(from entry: HARArchive.Entry) throws -> [TimelineItem.TweetData] {
         guard entry.request.urlString.hasPrefix("https://api.twitter.com/graphql/"),
               entry.request.method == "GET",
@@ -26,7 +32,6 @@ class TimelineDecoder {
 
         var allTweetData: [TimelineItem.TweetData] = []
 
-        let jsonDecoder = JSONDecoder()
         let timeline = try jsonDecoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {

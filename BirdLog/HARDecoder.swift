@@ -9,10 +9,14 @@
 import Foundation
 
 class HARDecoder {
-    func decodeRequests(from archive: Data) throws -> [HARArchive.Entry] {
-        let jsonDecoder = JSONDecoder()
-        let harArchive = try jsonDecoder.decode(HARArchive.self, from: archive)
+    let jsonDecoder: CompatibleJSONDecoder
 
+    init(jsonDecoder: CompatibleJSONDecoder) {
+        self.jsonDecoder = jsonDecoder
+    }
+
+    func decodeRequests(from archive: Data) throws -> [HARArchive.Entry] {
+        let harArchive = try jsonDecoder.decode(HARArchive.self, from: archive)
         return harArchive.log.entries
     }
 }
