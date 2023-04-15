@@ -1,0 +1,86 @@
+{
+  "pins" : [
+    {
+      "identity" : "ikigajson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/orlandos-nl/IkigaJSON.git",
+      "state" : {
+        "revision" : "07e5de4f593713333c10ca0f3cb15d67693086de",
+        "version" : "2.1.5"
+      }
+    },
+    {
+      "identity" : "jjliso8601dateformatter",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeleisel/JJLISO8601DateFormatter",
+      "state" : {
+        "revision" : "de422afd9a47b72703c30a81423c478337191390",
+        "version" : "0.1.6"
+      }
+    },
+    {
+      "identity" : "swift-atomics",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-atomics.git",
+      "state" : {
+        "revision" : "6c89474e62719ddcc1e9614989fff2f68208fe10",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "swift-collections",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-collections.git",
+      "state" : {
+        "revision" : "937e904258d22af6e447a0b72c0bc67583ef64a2",
+        "version" : "1.0.4"
+      }
+    },
+    {
+      "identity" : "swift-extras-json",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/swift-extras/swift-extras-json.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "122b9454ef01bf89a4c190b8fd3717ddd0a2fbd0"
+      }
+    },
+    {
+      "identity" : "swift-nio",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-nio.git",
+      "state" : {
+        "revision" : "e0cc6dd6ffa8e6a6f565938acd858b24e47902d0",
+        "version" : "2.50.0"
+      }
+    },
+    {
+      "identity" : "yajl-objc",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gabriel/yajl-objc.git",
+      "state" : {
+        "revision" : "4d47753def6bd2f64ae8dbd9b44711a3291bbe32",
+        "version" : "0.3.4"
+      }
+    },
+    {
+      "identity" : "zippyjson",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeleisel/ZippyJSON.git",
+      "state" : {
+        "revision" : "c4ab804780b64979f19268619dfa563b6be58f7d",
+        "version" : "1.2.10"
+      }
+    },
+    {
+      "identity" : "zippyjsoncfamily",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/michaeleisel/ZippyJSONCFamily",
+      "state" : {
+        "revision" : "8abdd7a5e943afe68e7b03fdaa63b21c042a3893",
+        "version" : "1.2.9"
+      }
+    }
+  ],
+  "version" : 2
+}

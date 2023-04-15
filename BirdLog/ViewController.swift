@@ -9,6 +9,11 @@
 import Cocoa
 import OSLog
 
+import ExtrasJSON
+import IkigaJSON
+import YAJLO
+import ZippyJSON
+
 private let log = Logger()
 
 class ViewController: NSViewController {
@@ -43,14 +48,59 @@ class ViewController: NSViewController {
             let data = try Data(contentsOf: url)
 
             log.debug("Decoding HAR...")
-            let requests = try harDecoder.decodeRequests(from: data)
+
+            log.debug("JSONDecoder (as models):")
+            let requests = try measureTime { try harDecoder.decodeRequests(from: data) }
+
+            log.debug("JSONSerialization (as dict):")
+            let _ = try measureTime { try JSONSerialization.jsonObject(with: data) }
+
+            log.debug("YAJL (as dict):")
+            let _ = try measureTime { try YAJLDocument(data: data, parserOptions: .none).root }
+
+            log.debug("Zippy (as models):")
+            let _ = try measureTime { try ZippyJSONDecoder().decode(HARArchive.self, from: data).log.entries }
+
+            log.debug("Ikiga (as models):")
+            let _ = try measureTime { try IkigaJSONDecoder().decode(HARArchive.self, from: data).log.entries }
+
+            log.debug("ExtrasJSON (as models):")
+            let _ = try measureTime { try XJSONDecoder().decode(HARArchive.self, from: data).log.entries }
 
             var allTweetData: [TimelineItem.TweetData] = []
 
             log.debug("Decoding tweet JSON...")
-            for request in requests {
-                let tweetDatas = try timelineDecoder.decodeTweetData(from: request)
-                allTweetData.append(contentsOf: tweetDatas)
+
+            log.debug("JSONDecoder:")
+            try measureTime {
+                for request in requests {
+                    let tweetDatas = try timelineDecoder.decodeTweetData(from: request, using: JSONDecoder())
+                    allTweetData.append(contentsOf: tweetDatas)
+                }
+            }
+
+            log.debug("Zippy:")
+            try measureTime {
+                for request in requests {
+                    let tweetDatas = try timelineDecoder.decodeTweetData(from: request, using: ZippyJSONDecoder())
+                    allTweetData.append(contentsOf: tweetDatas)
+                }
+            }
+
+            log.debug("Ikiga:")
+            try measureTime {
+                for request in requests {
+                    let tweetDatas = try timelineDecoder.decodeTweetData(from: request, using: IkigaJSONDecoder())
+                    allTweetData.append(contentsOf: tweetDatas)
+                }
+            }
+
+            log.debug("ExtrasJSON:")
+            try measureTime {
+                for request in requests {
+                    let tweetDatas = try timelineDecoder.decodeTweetData(from: request, using: XJSONDecoder())
+                    allTweetData.append(contentsOf: tweetDatas)
+                }
             }
 
             log.debug("Building tweets...")
@@ -63,7 +113,7 @@ class ViewController: NSViewController {
 
             log.debug("Done ✓")
 
-            for tweet in sortedTweets {
+            /*for tweet in sortedTweets {
                 let retweet = tweet.retweetedTweet
                 let quote = retweet?.quotedTweet ?? tweet.quotedTweet
 
@@ -77,7 +127,7 @@ class ViewController: NSViewController {
                         : ""
                       )
                 )
-            }
+            }*/
         } catch let error {
             print(error)
         }

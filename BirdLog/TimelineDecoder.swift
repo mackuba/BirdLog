@@ -8,8 +8,21 @@
 
 import Foundation
 
+import ExtrasJSON
+import IkigaJSON
+import ZippyJSON
+
+protocol SomeDecoder {
+    func decode<T : Decodable>(_ type: T.Type, from data: Data) throws -> T
+}
+
+extension JSONDecoder: SomeDecoder {}
+extension IkigaJSONDecoder: SomeDecoder {}
+extension ZippyJSONDecoder: SomeDecoder {}
+extension XJSONDecoder: SomeDecoder {}
+
 class TimelineDecoder {
-    func decodeTweetData(from entry: HARArchive.Entry) throws -> [TimelineItem.TweetData] {
+    func decodeTweetData(from entry: HARArchive.Entry, using decoder: SomeDecoder) throws -> [TimelineItem.TweetData] {
         guard entry.request.urlString.hasPrefix("https://api.twitter.com/graphql/"),
               entry.request.method == "GET",
               entry.response.status == 200,
@@ -26,8 +39,7 @@ class TimelineDecoder {
 
         var allTweetData: [TimelineItem.TweetData] = []
 
-        let jsonDecoder = JSONDecoder()
-        let timeline = try jsonDecoder.decode(timelineType, from: responseData)
+        let timeline = try decoder.decode(timelineType, from: responseData)
 
         for instruction in timeline.instructions {
             let entries = instruction.allEntries.filter { $0.componentType.isRelevant }
