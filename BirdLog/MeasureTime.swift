@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import os
 
 func measureTime<ReturnType>(_ block: () throws -> ReturnType) rethrows -> ReturnType {
     let start = DispatchTime.now()

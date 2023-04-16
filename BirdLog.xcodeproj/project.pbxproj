@@ -11,6 +11,7 @@
 		8C0C6CC729EAE153008C340B /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CC629EAE153008C340B /* JSONDecoder.swift */; };
 		8C0C6CC929EAFAA8008C340B /* TweetExporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CC829EAFAA8008C340B /* TweetExporter.swift */; };
 		8C0C6CCD29EAFBFD008C340B /* TweetJSONRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CCB29EAFBFD008C340B /* TweetJSONRepresentation.swift */; };
+		8C0C6CD429EB72E6008C340B /* HARImport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0C6CD329EB72E6008C340B /* HARImport.swift */; };
 		8C69333C29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8C69333A29E2EB7100B9F5B5 /* TweetsArchive.xcdatamodeld */; };
 		8C69336629E884B800B9F5B5 /* MeasureTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C69336529E884B800B9F5B5 /* MeasureTime.swift */; };
 		8C7A2521299678040086BAE6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7A2520299678040086BAE6 /* AppDelegate.swift */; };
@@ -31,6 +32,7 @@
 		8C0C6CC629EAE153008C340B /* JSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONDecoder.swift; sourceTree = "<group>"; };
 		8C0C6CC829EAFAA8008C340B /* TweetExporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetExporter.swift; sourceTree = "<group>"; };
 		8C0C6CCB29EAFBFD008C340B /* TweetJSONRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetJSONRepresentation.swift; sourceTree = "<group>"; };
+		8C0C6CD329EB72E6008C340B /* HARImport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HARImport.swift; sourceTree = "<group>"; };
 		8C69333B29E2EB7100B9F5B5 /* TweetsModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TweetsModel.xcdatamodel; sourceTree = "<group>"; };
 		8C69336529E884B800B9F5B5 /* MeasureTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureTime.swift; sourceTree = "<group>"; };
 		8C7A251D299678040086BAE6 /* BirdLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BirdLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +94,7 @@
 				8C7A2524299678060086BAE6 /* Assets.xcassets */,
 				8C7A2529299678060086BAE6 /* BirdLog.entitlements */,
 				8C7A25382996CADB0086BAE6 /* HARDecoder.swift */,
+				8C0C6CD329EB72E6008C340B /* HARImport.swift */,
 				8C0C6CC629EAE153008C340B /* JSONDecoder.swift */,
 				8C7A2526299678060086BAE6 /* Main.storyboard */,
 				8C69336529E884B800B9F5B5 /* MeasureTime.swift */,
@@ -202,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C0C6CD429EB72E6008C340B /* HARImport.swift in Sources */,
 				8C7A2523299678040086BAE6 /* ViewController.swift in Sources */,
 				8C69336629E884B800B9F5B5 /* MeasureTime.swift in Sources */,
 				8C7A253D2996F4830086BAE6 /* TweetDateFormatter.swift in Sources */,

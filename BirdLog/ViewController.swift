@@ -7,9 +7,6 @@
 //
 
 import Cocoa
-import OSLog
-
-private let log = Logger()
 
 class ViewController: NSViewController {
 
@@ -28,7 +25,12 @@ class ViewController: NSViewController {
 
         panel.beginSheetModal(for: self.view.window!) { response in
             if response == .OK, let url = panel.url {
-                self.importHARArchive(url: url)
+                do {
+                    let importer = HARImport(context: self.managedObjectContext)
+                    try importer.importTweets(from: url)
+                } catch let error {
+                    print(error)
+                }
             }
         }
     }
@@ -47,57 +49,6 @@ class ViewController: NSViewController {
                     print(error)
                 }
             }
-        }
-    }
-
-    func importHARArchive(url: URL) {
-        let jsonDecoder = defaultJSONDecoder()
-        let harDecoder = HARDecoder(jsonDecoder: jsonDecoder)
-        let timelineDecoder = TimelineDecoder(jsonDecoder: jsonDecoder)
-        let builder = TweetBuilder(context: managedObjectContext)
-
-        do {
-            log.debug("Reading file...")
-            let data = try Data(contentsOf: url)
-
-            log.debug("Decoding HAR...")
-            let requests = try harDecoder.decodeRequests(from: data)
-
-            var allTweetData: [TimelineItem.TweetData] = []
-
-            log.debug("Decoding tweet JSON...")
-            for request in requests {
-                let tweetDatas = try timelineDecoder.decodeTweetData(from: request)
-                allTweetData.append(contentsOf: tweetDatas)
-            }
-
-            log.debug("Building tweets...")
-            let tweets = try allTweetData.map { try builder.buildTweet(from: $0) }
-
-            let sortedTweets = tweets.sorted { $0.date! > $1.date! }
-
-            log.debug("Saving managed context to the store...")
-            try managedObjectContext.save()
-
-            log.debug("Done ✓")
-
-            for tweet in sortedTweets {
-                let retweet = tweet.retweetedTweet
-                let quote = retweet?.quotedTweet ?? tweet.quotedTweet
-
-                print("\(tweet.date!) " +
-                      (retweet != nil ?
-                        "[by @\(tweet.author?.screenName)] @\(retweet!.author?.screenName): " :
-                        "\(tweet.author?.screenName): ") +
-                      "\"\(retweet?.text ?? tweet.text)\"" +
-                      (quote != nil ?
-                       "\n  --> @\(quote!.author?.screenName): \"\(quote!.text)\""
-                        : ""
-                      )
-                )
-            }
-        } catch let error {
-            print(error)
         }
     }
 }
