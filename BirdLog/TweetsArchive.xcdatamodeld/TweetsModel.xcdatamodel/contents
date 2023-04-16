@@ -3,7 +3,7 @@
     <entity name="Tweet" representedClassName="Tweet" syncable="YES" codeGenerationType="class">
         <attribute name="date" attributeType="Date" minDateTimeInterval="157762800" maxDateTimeInterval="915145200" usesScalarValueType="NO"/>
         <attribute name="favoriteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
-        <attribute name="id" attributeType="String" minValueString="1"/>
+        <attribute name="id" attributeType="String" minValueString="1" regularExpressionString="[0-9]+"/>
         <attribute name="language" optional="YES" attributeType="String"/>
         <attribute name="quoteCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
         <attribute name="replyCount" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
