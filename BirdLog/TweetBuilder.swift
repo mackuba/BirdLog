@@ -31,6 +31,7 @@ class TweetBuilder {
         request.predicate = NSPredicate(format: "id = %@", argumentArray: [tweetId])
         request.fetchLimit = 1
         request.includesPendingChanges = false
+        request.includesPropertyValues = false
 
         let results = try context.fetch(request)
 
@@ -90,6 +91,7 @@ class TweetBuilder {
         request.predicate = NSPredicate(format: "id = %@", argumentArray: [userId])
         request.fetchLimit = 1
         request.includesPendingChanges = false
+        request.includesPropertyValues = false
 
         let results = try context.fetch(request)
 
